@@ -1,6 +1,6 @@
 Summary:	A weather forecasting applet for the GNOME Panel
 Name:		Gforecast
-Version:	0.2
+Version:	0.3
 Release:	1
 License:	GPL
 Group:		X11/Applications
