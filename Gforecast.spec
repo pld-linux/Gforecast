@@ -32,7 +32,7 @@ wy¶wietla j± w formie ikony.
 
 %build
 rm -rf missing
-gettextize --copy --force
+%{__gettextize}
 aclocal -I macros
 %{__autoconf}
 %{__automake}
