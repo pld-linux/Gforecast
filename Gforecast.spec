@@ -58,4 +58,4 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/*
 %{_sysconfdir}/CORBA/servers/*
 %{_datadir}/applets/Monitors/*
-%{_datadir}/pixmaps/*
+%{_pixmapsdir}/*
