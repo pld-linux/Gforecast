@@ -1,37 +1,51 @@
-Summary: A weather forecasting applet for the GNOME Panel
-Name: Gforecast
-Version: 0.1
-Release: 1
-Copyright: GPL
-Group: User Interface/Desktops
-Source: Gforecast-0.1.tar.gz
-Requires: gnome-libs >= 1.2.1
-Requires: gnome-core >= 1.2.1
-URL: http://waepplets.sourceforge.net/
-BuildRoot: /tmp/Gforecast-root
+Summary:	A weather forecasting applet for the GNOME Panel
+Name:		Gforecast
+Version:	0.1
+Release:	1
+License:	GPL
+Group:		X11/Applications
+Group(pl):	X11/Aplikacje
+Source0:	ftp://download.sourceforge.net/pub/sourceforge/waepplets/%{name}-%{version}.tar.gz
+Patch0:		Gforecast-automake.patch
+Requires:	gnome-libs >= 1.2.1
+Requires:	gnome-core >= 1.2.1
+URL:		http://waepplets.sourceforge.net/
+BuildRequires:	automake
+BuildRequires:	gnome-core-devel
+BuildRequires:	gnome-libs-devel
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		_prefix		/usr/X11R6
+%define		_sysconfdir	/etc/X11/GNOME
 
 %description
 Simple applet that gets the forecast for a chosen city and shows it as
 an icon image in a GNOME applet.
 
 %prep
-%setup
+%setup -q
+%patch -p1
 
 %build
-CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=/usr
-make
+automake
+LDFLAGS="-s"; export LDFLAGS
+%configure
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make prefix=$RPM_BUILD_ROOT/usr install
-du -k $RPM_BUILD_ROOT
+
+%{__make} install DESTDIR=$RPM_BUILD_ROOT
+
+gzip -9nf AUTHORS ChangeLog NEWS README TODO
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-, root, root)
-%doc AUTHORS COPYING ChangeLog NEWS README TODO
-/usr/bin/*
-/usr/share/applets/*
-/usr/etc/CORBA/servers/*
+%defattr(644,root,root,755)
+%doc *.gz
+%attr(755,root,root) %{_bindir}/*
+%{_sysconfdir}/CORBA/servers/*
+%{_datadir}/applets/Monitors/*
+%{_datadir}/pixmaps/*
