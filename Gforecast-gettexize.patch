@@ -1,0 +1,218 @@
+diff -Nru Gforecast-0.3/AUTHORS Gforecast-0.3.new/AUTHORS
+--- Gforecast-0.3/AUTHORS	Mon Jul 31 13:38:17 2000
++++ Gforecast-0.3.new/AUTHORS	Mon Jul 31 13:37:25 2000
+@@ -6,7 +6,7 @@
+ 
+ - David P. Thomas <dthomas@outlook.net>
+ - Fernando Parra <duva@ciberlinux.net>
+-- Tomasz Kloczko <kloczek@wun.zie.pg.gda.pl>
++- Tomasz K³oczko <kloczek@pld.org.pl>
+ - Jamie O'Shaughnessy <jamie@thanatar.demon.co.uk>
+ 
+ Many thanks go to those people that wrote in with suggestions and cheers!
+diff -Nru Gforecast-0.3/ChangeLog Gforecast-0.3.new/ChangeLog
+--- Gforecast-0.3/ChangeLog	Mon Jul 31 13:38:17 2000
++++ Gforecast-0.3.new/ChangeLog	Mon Jul 31 13:37:25 2000
+@@ -12,8 +12,8 @@
+ - Rolled version number to 0.2
+ - Fixed spec file configure option (sysconfdir) thnx to David Thomas
+ 	<dthomas@outlook.net>
+-- Fixed icon install for the GNOME panel menu thnx to Tomasz Kloczko
+-	<kloczek@wun.zie.pg.gda.pl>
++- Fixed icon install for the GNOME panel menu thnx to Tomasz K³oczko
++	<kloczek@pld.org.pl>
+ 
+ Mon Jun 26 17:42:45 PDT 2000
+ 
+diff -Nru Gforecast-0.3/Gforecast.c Gforecast-0.3.new/Gforecast.c
+--- Gforecast-0.3/Gforecast.c	Mon Jul 31 13:38:17 2000
++++ Gforecast-0.3.new/Gforecast.c	Mon Jul 31 13:37:25 2000
+@@ -129,7 +129,7 @@
+ 		fetch_forecast_image_url(img_url);
+ 		show_info_msg("Got image URL.");
+ 		if (strlen(img_url) < 2) {
+-			show_error_msg("Could not get forecast, wrong file maybe?");
++			show_error_msg(_("Could not get forecast, wrong file maybe?"));
+ 		} else {
+ 			if (tmp_file_name == NULL) {
+ 				tmp_file_name = tempnam("/tmp", ".Gf-");
+@@ -145,7 +145,7 @@
+ 							timer_callback, NULL);
+ 		}
+ 	} else {
+-		show_info_msg("Showing question mark.");
++		show_info_msg(_("Showing question mark."));
+ 		post_update = TRUE;
+ 		load_image(NULL);
+ 		timer_id = gtk_timeout_add(1000, timer_callback, NULL);
+@@ -177,12 +177,12 @@
+ 	GtkWidget *dlg;
+ 	gchar *buffer;
+ 
+-	dlg = gnome_dialog_new("Configuration", GNOME_STOCK_BUTTON_OK,
++	dlg = gnome_dialog_new(_("Configuration"), GNOME_STOCK_BUTTON_OK,
+ 					GNOME_STOCK_BUTTON_CANCEL, NULL);
+ 	gnome_dialog_set_default(GNOME_DIALOG(dlg), 0);
+ 
+ 	refresh_holder = gtk_hbox_new(FALSE, 0);
+-	label = gtk_label_new("Refresh (mins.):");
++	label = gtk_label_new(_("Refresh (mins.):"));
+ 	gtk_box_pack_start(GTK_BOX(refresh_holder), label, TRUE, FALSE, 0);
+ 	gtk_widget_show(label);
+ 	refresh = gtk_entry_new();
+@@ -194,7 +194,7 @@
+ 	gtk_widget_show(refresh_holder);
+ 
+ 	file_holder = gtk_hbox_new(FALSE, 0);
+-	label = gtk_label_new("City HTML file:");
++	label = gtk_label_new(_("City HTML file:"));
+ 	gtk_box_pack_start(GTK_BOX(file_holder), label, TRUE, FALSE, 0);
+ 	gtk_widget_show(label);
+ 	city_file = gtk_entry_new();
+@@ -257,9 +257,9 @@
+ 	gnome_config_pop_prefix();
+ 	if (weather_city_file == NULL) {
+ 		first_instance = TRUE;
+-		show_info_msg("Default city is Ensenada, Mexico.");
++		show_info_msg(_("Default city is Ensenada, Mexico."));
+ 		refresh_time = 60.0;
+-		weather_city_file = "mx__ensenada.html";
++		weather_city_file = _("mx__ensenada.html");
+ 	}
+ 
+ 	applet_size = applet_widget_get_panel_pixel_size(APPLET_WIDGET(applet));
+diff -Nru Gforecast-0.3/Gforecast.desktop Gforecast-0.3.new/Gforecast.desktop
+--- Gforecast-0.3/Gforecast.desktop	Mon Jul 31 13:38:17 2000
++++ Gforecast-0.3.new/Gforecast.desktop	Mon Jul 31 13:37:25 2000
+@@ -3,6 +3,7 @@
+ Name[es]=Gpronostico
+ Comment=A weather forecast providing GNOME applet
+ Comment[es]=Un applet GNOME para ver el clima
++Comment[pl]=Aplet udostêpniajacy informacje o pogodzie
+ #Exec=Gforecast --activate-goad-server=Gforecast
+ Exec=Gforecast
+ Icon=Gforecast.png
+diff -Nru Gforecast-0.3/Makefile.am Gforecast-0.3.new/Makefile.am
+--- Gforecast-0.3/Makefile.am	Mon Jul 31 13:38:17 2000
++++ Gforecast-0.3.new/Makefile.am	Mon Jul 31 13:37:25 2000
+@@ -1,6 +1,6 @@
+ INCLUDES = -I. -I$(srcdir) -I$(includedir) $(GNOME_INCLUDEDIR)
+ 
+-SUBDIRS = macros
++SUBDIRS = macros po intl
+ 
+ bin_PROGRAMS = Gforecast
+ 
+diff -Nru Gforecast-0.3/configure.in Gforecast-0.3.new/configure.in
+--- Gforecast-0.3/configure.in	Mon Jul 31 13:38:17 2000
++++ Gforecast-0.3.new/configure.in	Mon Jul 31 13:38:43 2000
+@@ -37,6 +37,9 @@
+ dnl utility conditional
+ AM_CONDITIONAL(FALSE, test "x" = "y")
+ 
++ALL_LINGUAS="pl"
++AM_GNU_GETTEXT
++
+ dnl possibly have something like this
+ dnl AM_ARG_ENABLE(old-applets,
+ dnl[  --enable-old-applets            Build old applets],
+@@ -101,8 +104,10 @@
+ dnl AC_DEFINE_UNQUOTED(GNOME_ICONDIR, "${prefix}/share/pixmaps")
+ 
+ AC_OUTPUT([
+-Makefile
+-macros/Makefile
+-Gforecast.spec
++	Makefile
++	intl/Makefile
++	po/Makefile.in
++	macros/Makefile
++	Gforecast.spec
+ ])
+ 
+diff -Nru Gforecast-0.3/po/POTFILES.in Gforecast-0.3.new/po/POTFILES.in
+--- Gforecast-0.3/po/POTFILES.in	Thu Jan  1 01:00:00 1970
++++ Gforecast-0.3.new/po/POTFILES.in	Mon Jul 31 13:37:25 2000
+@@ -0,0 +1 @@
++Gforecast.c
+\ No newline at end of file
+diff -Nru Gforecast-0.3/po/pl.po Gforecast-0.3.new/po/pl.po
+--- Gforecast-0.3/po/pl.po	Thu Jan  1 01:00:00 1970
++++ Gforecast-0.3.new/po/pl.po	Mon Jul 31 13:37:25 2000
+@@ -0,0 +1,71 @@
++# SOME DESCRIPTIVE TITLE.
++# Copyright (C) YEAR Free Software Foundation, Inc.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++#, fuzzy
++msgid ""
++msgstr ""
++"Project-Id-Version: Gforecast 0.3\n"
++"POT-Creation-Date: 2000-07-31 13:03+0200\n"
++"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
++"Last-Translator: Tomasz K³oczko <kloczek@pld.org.pl>\n"
++"Language-Team: Polish <pl@li.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=iso-8859-2\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: Gforecast.c:132
++msgid "Could not get forecast, wrong file maybe?"
++msgstr ""
++
++#: Gforecast.c:148
++msgid "Showing question mark."
++msgstr ""
++
++#: Gforecast.c:180
++msgid "Configuration"
++msgstr "Konfiguracja"
++
++#: Gforecast.c:185
++msgid "Refresh (mins.):"
++msgstr "Od¶wie¿ane co (minut):"
++
++#: Gforecast.c:197
++msgid "City HTML file:"
++msgstr "Plik HTML miasta:"
++
++#: Gforecast.c:224
++msgid "Failed to launch browser"
++msgstr ""
++
++#: Gforecast.c:235
++msgid "Gforecast"
++msgstr ""
++
++#: Gforecast.c:236
++msgid "Copyright (C) 2000 Roberto Machorro"
++msgstr "Copyright (C) 2000 Roberto Machorro"
++
++#: Gforecast.c:260
++msgid "Default city is Ensenada, Mexico."
++msgstr "Domy¶lnym miastem jest Warszawa, Polska."
++
++#: Gforecast.c:262
++msgid "mx__ensenada.html"
++msgstr "pl_warszawa.html"
++
++#: Gforecast.c:284
++msgid "Properties"
++msgstr "Ustawienia"
++
++#: Gforecast.c:291
++msgid "View Website"
++msgstr ""
++
++#: Gforecast.c:298
++msgid "Update"
++msgstr "Od¶wie¿"
++
++#: Gforecast.c:305
++msgid "About"
++msgstr "O programie"
+diff -Nru Gforecast-0.3/po/stamp-cat-id Gforecast-0.3.new/po/stamp-cat-id
+--- Gforecast-0.3/po/stamp-cat-id	Thu Jan  1 01:00:00 1970
++++ Gforecast-0.3.new/po/stamp-cat-id	Mon Jul 31 13:37:25 2000
+@@ -0,0 +1 @@
++timestamp
