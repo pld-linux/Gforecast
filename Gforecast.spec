@@ -5,14 +5,14 @@ Version:	0.4
 Release:	3
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://download.sourceforge.net/pub/sourceforge/waepplets/%{name}-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/waepplets/%{name}-%{version}.tar.gz
 Patch0:		%{name}-configure.in.patch
 URL:		http://waepplets.sourceforge.net/
-BuildRequires:	gnome-core-devel
-BuildRequires:	gnome-libs-devel
-BuildRequires:	gettext-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	gettext-devel
+BuildRequires:	gnome-core-devel
+BuildRequires:	gnome-libs-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sysconfdir	/etc/X11/GNOME
