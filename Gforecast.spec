@@ -22,8 +22,8 @@ Simple applet that gets the forecast for a chosen city and shows it as
 an icon image in a GNOME applet.
 
 %description -l pl
-Prosty applet, który pobiera informacjê o pogodzie dla danego miasta
-i wy¶wietla j± w formie ikony.
+Prosty applet, który pobiera informacjê o pogodzie dla danego miasta i
+wy¶wietla j± w formie ikony.
 
 %prep
 %setup -q
