@@ -1,0 +1,14 @@
+diff -uNr Gforecast-0.4.orig/configure.in Gforecast-0.4/configure.in
+--- Gforecast-0.4.orig/configure.in	Thu Feb 15 04:57:34 2001
++++ Gforecast-0.4/configure.in	Thu Apr 25 08:43:25 2002
+@@ -34,8 +34,8 @@
+ CFLAGS=$CFLAGS_save
+ LIBS=$LIBS_save
+ 
+-dnl utility conditional
+-AM_CONDITIONAL(FALSE, test "x" = "y")
++#dnl utility conditional
++#AM_CONDITIONAL(FALSE, test "x" = "y")
+ 
+ AC_SUBST(LOCALEDIR)
+ LOCALEDIR=${prefix}/share/locale
