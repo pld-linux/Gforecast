@@ -1,16 +1,14 @@
 Summary:	A weather forecasting applet for the GNOME Panel
 Name:		Gforecast
-Version:	0.1
+Version:	0.2
 Release:	1
 License:	GPL
 Group:		X11/Applications
 Group(pl):	X11/Aplikacje
 Source0:	ftp://download.sourceforge.net/pub/sourceforge/waepplets/%{name}-%{version}.tar.gz
-Patch0:		Gforecast-automake.patch
 Requires:	gnome-libs >= 1.2.1
 Requires:	gnome-core >= 1.2.1
 URL:		http://waepplets.sourceforge.net/
-BuildRequires:	automake
 BuildRequires:	gnome-core-devel
 BuildRequires:	gnome-libs-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -24,10 +22,8 @@ an icon image in a GNOME applet.
 
 %prep
 %setup -q
-%patch -p1
 
 %build
-automake
 LDFLAGS="-s"; export LDFLAGS
 %configure
 %{__make}
