@@ -34,8 +34,8 @@ wy¶wietla j± w formie ikony.
 rm -rf missing
 gettextize --copy --force
 aclocal -I macros
-autoconf
-automake -a -c -f
+%{__autoconf}
+%{__automake}
 %configure
 %{__make}
 
