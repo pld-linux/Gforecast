@@ -6,11 +6,13 @@ License:	GPL
 Group:		X11/Applications
 Group(pl):	X11/Aplikacje
 Source0:	ftp://download.sourceforge.net/pub/sourceforge/waepplets/%{name}-%{version}.tar.gz
+Patch0:		Gforecast-gettexize.patch
 Requires:	gnome-libs >= 1.2.1
 Requires:	gnome-core >= 1.2.1
 URL:		http://waepplets.sourceforge.net/
 BuildRequires:	gnome-core-devel
 BuildRequires:	gnome-libs-devel
+BuildRequires:	gettext-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
@@ -22,8 +24,13 @@ an icon image in a GNOME applet.
 
 %prep
 %setup -q
+%patch -p1
 
 %build
+gettextize --copy --force
+aclocal -I macros
+autoconf
+automake
 LDFLAGS="-s"; export LDFLAGS
 %configure
 %{__make}
@@ -35,10 +42,12 @@ rm -rf $RPM_BUILD_ROOT
 
 gzip -9nf AUTHORS ChangeLog NEWS README TODO
 
+%find_lang %{name}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc *.gz
 %attr(755,root,root) %{_bindir}/*
