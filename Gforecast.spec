@@ -1,12 +1,13 @@
 Summary:	A weather forecasting applet for the GNOME Panel
 Name:		Gforecast
 Version:	0.3
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications
+Group(de):	X11/Applikationen
 Group(pl):	X11/Aplikacje
 Source0:	ftp://download.sourceforge.net/pub/sourceforge/waepplets/%{name}-%{version}.tar.gz
-Patch0:		Gforecast-gettexize.patch
+Patch0:		%{name}-gettexize.patch
 Requires:	gnome-libs >= 1.2.1
 Requires:	gnome-core >= 1.2.1
 URL:		http://waepplets.sourceforge.net/
@@ -31,7 +32,6 @@ gettextize --copy --force
 aclocal -I macros
 autoconf
 automake
-LDFLAGS="-s"; export LDFLAGS
 %configure
 %{__make}
 
