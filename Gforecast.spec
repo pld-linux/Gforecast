@@ -2,7 +2,7 @@ Summary:	A weather forecasting applet for the GNOME Panel
 Summary(pl):	Applet dla GNOME pokazuj±cy pogodê w danym regionie
 Name:		Gforecast
 Version:	0.4
-Release:	2
+Release:	3
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://download.sourceforge.net/pub/sourceforge/waepplets/%{name}-%{version}.tar.gz
