@@ -1,16 +1,13 @@
 Summary:	A weather forecasting applet for the GNOME Panel
-Summary(pl):	Applet dla GNOME pokazuj±cy pogodê w danym regionie.
+Summary(pl):	Applet dla GNOME pokazuj±cy pogodê w danym regionie
 Name:		Gforecast
-Version:	0.3
-Release:	2
+Version:	0.4
+Release:	1
 License:	GPL
 Group:		X11/Applications
 Group(de):	X11/Applikationen
 Group(pl):	X11/Aplikacje
 Source0:	ftp://download.sourceforge.net/pub/sourceforge/waepplets/%{name}-%{version}.tar.gz
-Patch0:		%{name}-gettexize.patch
-Requires:	gnome-libs >= 1.2.1
-Requires:	gnome-core >= 1.2.1
 URL:		http://waepplets.sourceforge.net/
 BuildRequires:	gnome-core-devel
 BuildRequires:	gnome-libs-devel
@@ -30,13 +27,9 @@ i wy¶wietla j± w formie ikony.
 
 %prep
 %setup -q
-%patch -p1
 
 %build
 gettextize --copy --force
-aclocal -I macros
-autoconf
-automake
 %configure
 %{__make}
 
