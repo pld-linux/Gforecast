@@ -6,6 +6,7 @@ Release:	3
 License:	GPL
 Group:		X11/Applications
 Source0:	http://dl.sourceforge.net/waepplets/%{name}-%{version}.tar.gz
+# Source0-md5:	c0f582ea548a3be3f46d7acb8249baa3
 Patch0:		%{name}-configure.in.patch
 URL:		http://waepplets.sourceforge.net/
 BuildRequires:	autoconf
