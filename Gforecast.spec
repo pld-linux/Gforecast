@@ -1,5 +1,5 @@
 Summary:	A weather forecasting applet for the GNOME Panel
-Summary(pl.UTF-8):   Applet dla GNOME pokazujący pogodę w danym regionie
+Summary(pl.UTF-8):	Applet dla GNOME pokazujący pogodę w danym regionie
 Name:		Gforecast
 Version:	0.4
 Release:	3
