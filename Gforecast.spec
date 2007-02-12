@@ -1,5 +1,5 @@
 Summary:	A weather forecasting applet for the GNOME Panel
-Summary(pl):	Applet dla GNOME pokazuj±cy pogodê w danym regionie
+Summary(pl.UTF-8):   Applet dla GNOME pokazujÄ…cy pogodÄ™ w danym regionie
 Name:		Gforecast
 Version:	0.4
 Release:	3
@@ -22,9 +22,9 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Simple applet that gets the forecast for a chosen city and shows it as
 an icon image in a GNOME applet.
 
-%description -l pl
-Prosty applet, który pobiera informacjê o pogodzie dla danego miasta i
-wy¶wietla j± w formie ikony.
+%description -l pl.UTF-8
+Prosty applet, ktÃ³ry pobiera informacjÄ™ o pogodzie dla danego miasta i
+wyÅ›wietla jÄ… w formie ikony.
 
 %prep
 %setup -q
